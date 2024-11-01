@@ -43,7 +43,7 @@ export const PokemonTypeSelection = ({
         textAlign="center"
       >
         <ThemeProvider theme={theme}>
-          <Typography variant="h3">Find Pokemon By Type</Typography>
+          <Typography variant="h3">Find Pokémon By Type</Typography>
         </ThemeProvider>
         <form onSubmit={handleSubmit}>
           <Box

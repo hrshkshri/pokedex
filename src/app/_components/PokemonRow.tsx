@@ -1,48 +1,79 @@
 "use client";
 import React from "react";
-import { trpc } from "../_trpc/client";
 import { Paper, Box, Typography, Button } from "@mui/material";
 import Link from "next/link";
 
-interface Props{
-  id:number,
-  name:string,
-  types:string[],
-  sprite:string,
-  img:string
+interface Props {
+  id: number;
+  name: string;
+  types: string[];
+  sprite: string;
+  img: string;
 }
-const PokemonRow = (props:Props) => {
 
+const PokemonRow = (props: Props) => {
   return (
-    <Paper elevation={12} square={false}>
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <img
-                src={props.img}
-                width={200}
-                height={200}
-              />
-            </Box>
-            <Box paddingX={3}
-            paddingY={1}>
-              <Typography variant="body1">Name: {props.name}</Typography>
-              <Typography variant="body1">Types: {props.types.map(type=>type+",")}</Typography>
-            </Box>
-            <Box 
-            textAlign="center"
-            paddingY={2}
-            >
-              <Link href={props.sprite}>
-              <Button variant="contained" color="error">Sprite</Button>
-              </Link>
-            </Box>
-          </Paper>
+    <Paper
+      elevation={8}
+      square={false}
+      sx={{
+        margin: 3,
+        padding: 3,
+        minWidth: { xs: "100%", sm: "250px" },
+        maxWidth: "300px",
+        borderRadius: 3,
+        transition: "transform 0.2s ease, box-shadow 0.2s ease",
+        "&:hover": {
+          transform: "scale(1.05)",
+          boxShadow: "0 4px 20px rgba(0, 0, 0, 0.2)",
+        },
+      }}
+    >
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          paddingBottom: 2,
+        }}
+      >
+        <img
+          src={props.img}
+          alt={`${props.name} image`}
+          width={120}
+          height={120}
+          style={{
+            borderRadius: "50%",
+            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.15)",
+          }}
+        />
+      </Box>
+      <Box paddingX={1} paddingY={1} textAlign="center">
+        <Typography variant="h6" fontWeight="bold" gutterBottom>
+          {props.name}
+        </Typography>
+        <Typography
+          variant="body2"
+          color="textSecondary"
+          sx={{
+            backgroundColor: "#f1f1f1",
+            padding: "4px 8px",
+            borderRadius: "8px",
+            display: "inline-block",
+          }}
+        >
+          Types: {props.types.join(", ")}
+        </Typography>
+      </Box>
+      <Box textAlign="center" paddingY={2}>
+        <Link href={props.sprite} passHref>
+          <Button variant="contained" color="error" sx={{ borderRadius: 8 }}>
+            View Sprite
+          </Button>
+        </Link>
+      </Box>
+    </Paper>
   );
 };
-//why pokemon2 is the data returned by trpc api by prisma findmany method but when I do pokemon2.data it is of type object rather than array?
+
 export default PokemonRow;

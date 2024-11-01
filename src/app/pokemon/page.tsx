@@ -14,6 +14,7 @@ import { trpc } from "../_trpc/client";
 import PokemonRow from "../_components/PokemonRow";
 import { ThemeProvider } from "@emotion/react";
 import { ThreeCircles } from "react-loader-spinner";
+import { PokedexTable } from "../_components/PokedexTable";
 
 type Pokemon = {
   id: number;
@@ -82,7 +83,7 @@ const Pokedex = () => {
         textAlign="center"
       >
         <ThemeProvider theme={theme}>
-          <Typography variant="h3">Find Pokemon</Typography>
+          <Typography variant="h3">Find Pokémon</Typography>
         </ThemeProvider>
 
         <form onSubmit={handleSubmit}>
@@ -118,7 +119,6 @@ const Pokedex = () => {
           </Box>
         </form>
       </Box>
-
       {loading && (
         <Box
           sx={{
@@ -138,18 +138,13 @@ const Pokedex = () => {
           />
         </Box>
       )}
-
-      {data?.map((value: Pokemon) => (
-        <Box  key={value.id}>
-          <Container>
-            <Grid container direction="row" justifyContent="center" spacing={2}>
-              <Grid item xs={12} sm={3}>
-                <PokemonRow {...value} />
-              </Grid>
-            </Grid>
-          </Container>
-        </Box>
-      ))}
+      <Box
+        sx={{
+          width: "100%",
+        }}
+      >
+        <PokedexTable names={data} />
+      </Box>
     </Stack>
   );
 };
