@@ -10,7 +10,8 @@
     "dev": "next dev",
     "postinstall": "prisma generate",
     "lint": "next lint",
-    "start": "next start"
+    "start": "next start",
+    "seed": "npx tsx insertData.ts"
   },
   "dependencies": {
     "@emotion/react": "^11.11.3",
@@ -24,6 +25,7 @@
     "@trpc/next": "^10.43.6",
     "@trpc/react-query": "^10.43.6",
     "@trpc/server": "^10.43.6",
+    "axios": "^1.7.7",
     "next": "^14.0.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -42,6 +44,7 @@
     "eslint": "^8.54.0",
     "eslint-config-next": "^14.0.3",
     "prisma": "^5.6.0",
+    "tsx": "^4.19.2",
     "typescript": "^5.1.6"
   },
   "ct3aMetadata": {
