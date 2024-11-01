@@ -17,6 +17,16 @@ This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3
 ### Find By Type
    In this route, the user can access the Pokemon by entering the type of Pokemon he wants to see
 
+# Steps to start the project
+ - Clone the repo
+ - Run the command ```npm i``` to install the dependencies
+ - Make a .env file and fill in the necessary environment variables
+ - Run the project with the command ```npm run dev```
+
+## Environment variables used
+  - **DATABASE_URL** = Url of the Postgresql database you are using.
+  - **NEXT_PUBLIC_SUPABASE_ANON_KEY** = Anon key of superbase project.
+    
 ## Technology used
 - [Next.js](https://nextjs.org)
 - [Prisma](https://prisma.io)
@@ -24,4 +34,6 @@ This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3
 - [Material UI](https://mui.com/)
 - [Supabase](https://supabase.com/)
 - [PostgreSQL](https://www.postgresql.org/)
+
+  
 
