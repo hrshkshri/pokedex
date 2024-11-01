@@ -2,7 +2,6 @@
 import React from 'react'
 import { Container, Grid } from "@mui/material";
 import PokemonRow from "./PokemonRow"
-import { trpc } from '../_trpc/client';
 
 
 type Pokemon = {
@@ -23,7 +22,7 @@ export const PokedexTable = ({names}:PokedexTableProps) => {
     return (
         <Container>
             <Grid container spacing={4}>
-                {names && names.map((value) => (
+                {names?.map((value) => (
                     <Grid item xs={12} sm={3} key={value.id}>
                         <PokemonRow {...value}/>
                     </Grid>

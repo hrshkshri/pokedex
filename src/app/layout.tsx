@@ -4,7 +4,7 @@ import { Inter } from "next/font/google";
 
 import Provider from "~/app/_trpc/Provider";
 import Sidebar from "./_components/Sidebar";
-import { CssBaseline, Grid } from "@mui/material";
+import { CssBaseline } from "@mui/material";
 const inter = Inter({
   subsets: ["latin"],
 });

@@ -1,4 +1,4 @@
-import { Typography, Box, Stack,TextField,Button } from "@mui/material";
+import { Typography, Box,TextField,Button } from "@mui/material";
 import React, { useState } from "react";
 
 type PokemonTypeSelectionProps = {

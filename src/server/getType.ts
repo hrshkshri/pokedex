@@ -6,6 +6,9 @@ export const getTypeRoute = router({
     get: publicProcedure
     .input(z.object({type:z.string()}))
     .query(async (value)=>{
+        if(!prisma){
+            throw new Error("Prisma Client is not initiated")
+        }
         return prisma.pokemon.findMany({
             where:{
                 types:{

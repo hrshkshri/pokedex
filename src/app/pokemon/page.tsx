@@ -78,11 +78,11 @@ const Pokedex = () => {
       </Box>
         </form>
     </Box> 
-    {data && data.map((value:Pokemon) => {    
+    {data?.map((value:Pokemon) => {    
       return(
         <Box sx={{
           width:"85vw",
-        }}>
+        }} key={value.id}>
       <Container>
         <Grid container direction="row" justifyContent="center" spacing={2}>
           <Grid item xs={12} sm={3} key={value.id}>

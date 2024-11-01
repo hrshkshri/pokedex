@@ -6,6 +6,9 @@ export const getPokemonArrayRoute = router({
     get: publicProcedure
     .input(z.array(z.string()))
     .query(async (value)=>{
+        if(!prisma){
+            throw new Error("Prisma Client is not initiated")
+        }
         return prisma.pokemon.findMany({
             where:{
                 name:{

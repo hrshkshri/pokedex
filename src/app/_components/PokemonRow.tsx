@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { trpc } from "../_trpc/client";
-import { Container, Grid, Paper, Box, Typography, Button } from "@mui/material";
+import { Paper, Box, Typography, Button } from "@mui/material";
 import Link from "next/link";
 
 interface Props{
@@ -13,7 +13,6 @@ interface Props{
 }
 const PokemonRow = (props:Props) => {
 
-  const pokemon3 = trpc.getType.get.useQuery({ type: "fire" });
   return (
     <Paper elevation={12} square={false}>
             <Box
