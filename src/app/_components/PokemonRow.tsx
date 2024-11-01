@@ -16,12 +16,10 @@ const PokemonRow = (props:Props) => {
   return (
     <Paper elevation={12} square={false}>
             <Box
-              padding={1}
               sx={{
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                marginBottom:"10px"
               }}
             >
               <img

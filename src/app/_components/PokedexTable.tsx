@@ -23,7 +23,7 @@ export const PokedexTable = ({names}:PokedexTableProps) => {
         <Container>
             <Grid container spacing={4}>
                 {names?.map((value) => (
-                    <Grid item xs={12} sm={3} key={value.id}>
+                    <Grid item xs={12} sm={3} key={value.id} paddingY={3}>
                         <PokemonRow {...value}/>
                     </Grid>
                 ))}
