@@ -9,13 +9,13 @@ This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3
   - Find by type
     
 ### Find By Name
-    In this route, the user can access the Pokemon by just entering the name of the Pokemon he wants to see
+  In this route, the user can access the Pokemon by just entering the name of the Pokemon he wants to see
     
 ### Find By Multiple Name
-    In this route, the user can access data of multiple Pokemons by entering the name of the Pokemon he wants to see by entering names separated by commas.
+   In this route, the user can access data of multiple Pokemons by entering the name of the Pokemon he wants to see by entering names separated by commas.
     
 ### Find By Type
-    In this route, the user can access the Pokemon by entering the type of Pokemon he wants to see
+   In this route, the user can access the Pokemon by entering the type of Pokemon he wants to see
 
 ## Technology used
 - [Next.js](https://nextjs.org)
