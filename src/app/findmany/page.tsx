@@ -26,8 +26,9 @@ const Pokedex = () => {
   const [pokemon, setPokemon] = useState("");
   const [loading, setLoading] = useState(false);
   const [queryKey, setQueryKey] = useState<string>("");
-  const pokemon2 = trpc.getPokemonArray.get.useQuery<Pokemon[]>(
-    queryKey.split(","),
+
+  const pokemonQuery = trpc.getPokemonArray.get.useQuery<Pokemon[]>(
+    queryKey.split(",").map((name) => name.trim()),
     {
       enabled: false,
     }
@@ -45,22 +46,26 @@ const Pokedex = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setQueryKey((queryKey) => pokemon);
+    setQueryKey(pokemon);
     setLoading(true);
   };
 
   useEffect(() => {
-    pokemon2
-      .refetch()
-      .then(() => {
-        setLoading(false);
-      })
-      .catch((e) => {
-        console.log("error occured", e);
-      });
-  }, [queryKey]);
+    if (queryKey) {
+      pokemonQuery
+        .refetch()
+        .then(() => {
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.error("Error occurred:", error);
+          setLoading(false);
+        });
+    }
+  }, [queryKey, pokemonQuery]);
 
-  const data = pokemon2.data;
+  const data = pokemonQuery.data;
+
   return (
     <>
       <Stack direction="column" spacing={20}>
@@ -74,7 +79,7 @@ const Pokedex = () => {
           textAlign="center"
         >
           <ThemeProvider theme={theme}>
-            <Typography variant="h3">Find Multiple Pokemon</Typography>
+            <Typography variant="h3">Find Multiple Pokémon</Typography>
           </ThemeProvider>
           <form onSubmit={handleSubmit}>
             <Box
@@ -94,8 +99,8 @@ const Pokedex = () => {
             >
               <TextField
                 value={pokemon}
-                onChange={(e) => setPokemon((pokemon) => e.target.value)}
-                placeholder='Enter pokemon name seperated by commas eg:"Bulbasaur,pikachu"'
+                onChange={(e) => setPokemon(e.target.value)}
+                placeholder='Enter Pokémon names separated by commas e.g., "Bulbasaur,Pikachu"'
                 sx={{
                   width: {
                     xs: "100%",
@@ -103,8 +108,13 @@ const Pokedex = () => {
                   },
                 }}
               />
-              <Button variant="contained" type="submit" color="error">
-                Search
+              <Button
+                variant="contained"
+                type="submit"
+                color="error"
+                disabled={loading}
+              >
+                {loading ? "Searching..." : "Search"}
               </Button>
             </Box>
           </form>
@@ -141,4 +151,5 @@ const Pokedex = () => {
     </>
   );
 };
+
 export default Pokedex;
