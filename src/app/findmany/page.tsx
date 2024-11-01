@@ -65,7 +65,7 @@ const Pokedex = () => {
         <TextField
           value={pokemon}
           onChange={(e)=>setPokemon(e.target.value)}
-          placeholder='Enter pokemon name eg:"Bulbasaur"'
+          placeholder='Enter pokemon name seperated by commas eg:"Bulbasaur,pikachu"'
           sx={{
             width: "40vw",
           }}
