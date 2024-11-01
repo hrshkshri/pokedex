@@ -14,10 +14,10 @@
     "seed": "npx tsx insertData.ts"
   },
   "dependencies": {
-    "@emotion/react": "^11.11.3",
-    "@emotion/styled": "^11.11.0",
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
     "@mui/icons-material": "^5.14.5",
-    "@mui/material": "^5.15.5",
+    "@mui/material": "^5.16.7",
     "@prisma/client": "^5.6.0",
     "@t3-oss/env-nextjs": "^0.7.1",
     "@tanstack/react-query": "^4.36.1",

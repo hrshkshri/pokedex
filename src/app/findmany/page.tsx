@@ -18,110 +18,108 @@ type Pokemon = {
   name: string;
   types: string[];
   sprite: string;
-  img:string;
+  img: string;
 };
 
-
-
 const Pokedex = () => {
-    const theme = createTheme();
-    const [pokemon, setPokemon] = useState("");
-    const [loading,setLoading] = useState(false);
-    const [queryKey, setQueryKey] = useState<string>("");
-    const pokemon2 = trpc.getPokemonArray.get.useQuery<Pokemon[]>(queryKey.split(","),{
-      enabled:false
-    });
+  const theme = createTheme();
+  const [pokemon, setPokemon] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [queryKey, setQueryKey] = useState<string>("");
+  const pokemon2 = trpc.getPokemonArray.get.useQuery<Pokemon[]>(
+    queryKey.split(","),
+    {
+      enabled: false,
+    }
+  );
 
-    theme.typography.h3 = {
-      fontSize: '1.5rem',
-      '@media (min-width:600px)': {
-        fontSize: '2rem',
-      },
-      [theme.breakpoints.up('md')]: {
-        fontSize: '3rem',
-      },
-    };
+  theme.typography.h3 = {
+    fontSize: "1.5rem",
+    "@media (min-width:600px)": {
+      fontSize: "2rem",
+    },
+    [theme.breakpoints.up("md")]: {
+      fontSize: "3rem",
+    },
+  };
 
-
-  const handleSubmit= (e:React.FormEvent<HTMLFormElement>)=>{
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setQueryKey(queryKey=>pokemon);
+    setQueryKey((queryKey) => pokemon);
     setLoading(true);
-  }
-  
-  useEffect( ()=>{
-    pokemon2.refetch().
-    then(()=>{
-      console.log("Data fetched successfully")
-      setLoading(false);
-    })
-    .catch((e)=>{
-      console.log("error occured",e)
-    })
-  },[queryKey]);
+  };
 
+  useEffect(() => {
+    pokemon2
+      .refetch()
+      .then(() => {
+        setLoading(false);
+      })
+      .catch((e) => {
+        console.log("error occured", e);
+      });
+  }, [queryKey]);
 
   const data = pokemon2.data;
-  console.log(data);
   return (
     <>
-    <Stack direction="column" spacing={20}>
-    <Box
-      sx={{
-        position: "relative",
-        top: "100px",
-        width: "85vw",
-        height:"auto"
-      }}
-      textAlign="center"
-    >
-        <ThemeProvider theme={theme}>
-            <Typography variant="h3">Find Multiple Pokemon</Typography>
-        </ThemeProvider>
-      <form onSubmit={handleSubmit}>
-      <Box
-        textAlign="center"
-        alignItems="center"
-        sx={{
-          padding: "20px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          flexDirection:{
-            xs:'column',
-            sm:'row'
-          },
-          gap: "2rem",
-        }}
-      >
-        <TextField
-          value={pokemon}
-          onChange={(e)=>setPokemon(pokemon=>e.target.value)}
-          placeholder='Enter pokemon name seperated by commas eg:"Bulbasaur,pikachu"'
+      <Stack direction="column" spacing={20}>
+        <Box
           sx={{
-            width:{
-              xs:'100%',
-              sm:'40vw',
-            }
+            position: "relative",
+            top: "100px",
+            width: "85vw",
+            height: "auto",
           }}
-        />
-        <Button variant="contained" type="submit" color="error">
-          Search
-        </Button>
-      </Box>
-        </form>
-    </Box> 
-    {loading && (
+          textAlign="center"
+        >
+          <ThemeProvider theme={theme}>
+            <Typography variant="h3">Find Multiple Pokemon</Typography>
+          </ThemeProvider>
+          <form onSubmit={handleSubmit}>
+            <Box
+              textAlign="center"
+              alignItems="center"
+              sx={{
+                padding: "20px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flexDirection: {
+                  xs: "column",
+                  sm: "row",
+                },
+                gap: "2rem",
+              }}
+            >
+              <TextField
+                value={pokemon}
+                onChange={(e) => setPokemon((pokemon) => e.target.value)}
+                placeholder='Enter pokemon name seperated by commas eg:"Bulbasaur,pikachu"'
+                sx={{
+                  width: {
+                    xs: "100%",
+                    sm: "40vw",
+                  },
+                }}
+              />
+              <Button variant="contained" type="submit" color="error">
+                Search
+              </Button>
+            </Box>
+          </form>
+        </Box>
+        {loading && (
           <Box
             sx={{
-              width:"100%",
-              height:"100%",
-              display:"flex",
-              justifyContent:"center",
-              alignItems:"center"
+              width: "100%",
+              height: "100%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
             }}
           >
-          <ThreeCircles
+            <ThreeCircles
               visible={true}
               height="100"
               width="100"
@@ -129,17 +127,18 @@ const Pokedex = () => {
               ariaLabel="three-circles-loading"
               wrapperStyle={{}}
               wrapperClass=""
-          />
+            />
           </Box>
         )}
-    <Box sx={{
-        width:"85vw"
-    }}>
-        <PokedexTable names={data}/>
-    </Box>
-    </Stack>
+        <Box
+          sx={{
+            width: "100%",
+          }}
+        >
+          <PokedexTable names={data} />
+        </Box>
+      </Stack>
     </>
-
   );
 };
 export default Pokedex;
