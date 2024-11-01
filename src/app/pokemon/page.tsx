@@ -41,11 +41,16 @@ const Pokedex = () => {
   const handleSubmit= (e:React.FormEvent<HTMLFormElement>)=>{
     e.preventDefault();
     setQueryKey(queryKey=>pokemon);
-    pokemon2.refetch();
   }
   
   useEffect(()=>{
-    pokemon2.refetch();
+    pokemon2.refetch()
+    .then(()=>{
+      console.log("Data fetched successfully")
+    })
+    .catch((e)=>{
+      console.log("error occured",e)
+    })
   },[queryKey]);
 
   const data = pokemon2.data;

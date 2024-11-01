@@ -51,6 +51,10 @@ export const PokemonTypeSelection = ({
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
+              flexDirection:{
+                xs:'column',
+                sm:'row'
+              },
               gap: "2rem",
             }}
           >
@@ -59,7 +63,10 @@ export const PokemonTypeSelection = ({
               onChange={(e) => setInput(e.target.value)}
               placeholder='Enter pokemon type eg:"Fire"'
               sx={{
-                width: "40vw",
+                width:{
+                  xs:'100%',
+                  sm:'40vw',
+                }
               }}
             />
             <Button variant="contained" type="submit" color="error">

@@ -19,9 +19,16 @@ export const FilterablePokedexTable = () => {
       enabled:false
     }); 
    
-      useEffect(()=>{
-        pokemon2.refetch();
+      useEffect( ()=>{
+        pokemon2.refetch().
+        then(()=>{
+          console.log("Data fetched successfully")
+        })
+        .catch((e)=>{
+          console.log("error occured",e)
+        })
       },[selectedType]);
+
       const data = pokemon2.data;
       console.log(data);
   return (

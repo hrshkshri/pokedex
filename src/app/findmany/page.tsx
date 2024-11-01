@@ -47,8 +47,14 @@ const Pokedex = () => {
 
   }
   
-  useEffect(()=>{
-    pokemon2.refetch();
+  useEffect( ()=>{
+    pokemon2.refetch().
+    then(()=>{
+      console.log("Data fetched successfully")
+    })
+    .catch((e)=>{
+      console.log("error occured",e)
+    })
   },[queryKey]);
 
 
@@ -78,6 +84,10 @@ const Pokedex = () => {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          flexDirection:{
+            xs:'column',
+            sm:'row'
+          },
           gap: "2rem",
         }}
       >
@@ -86,7 +96,10 @@ const Pokedex = () => {
           onChange={(e)=>setPokemon(pokemon=>e.target.value)}
           placeholder='Enter pokemon name seperated by commas eg:"Bulbasaur,pikachu"'
           sx={{
-            width: "40vw",
+            width:{
+              xs:'100%',
+              sm:'40vw',
+            }
           }}
         />
         <Button variant="contained" type="submit" color="error">
