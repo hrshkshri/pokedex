@@ -1,4 +1,5 @@
-import { Typography, Box,TextField,Button } from "@mui/material";
+import { ThemeProvider } from "@emotion/react";
+import { Typography, Box, TextField, Button, createTheme } from "@mui/material";
 import React, { useState } from "react";
 
 type PokemonTypeSelectionProps = {
@@ -10,9 +11,18 @@ export const PokemonTypeSelection = ({
   selectedType,
   selectType,
 }: PokemonTypeSelectionProps) => {
+  const [input, setInput] = useState<string>("");
+  const theme = createTheme();
 
-    const [input,setInput] = useState<string>("");
-    
+  theme.typography.h3 = {
+    fontSize: "1.5rem",
+    "@media (min-width:600px)": {
+      fontSize: "2rem",
+    },
+    [theme.breakpoints.up("md")]: {
+      fontSize: "3rem",
+    },
+  };
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     selectType(input);
@@ -20,44 +30,44 @@ export const PokemonTypeSelection = ({
 
   return (
     <>
-    <Box
-      sx={{
-        position: "relative",
-        top: "100px",
-        width: "85vw",
-        height:"auto"
-      }}
-      textAlign="center"
-    >
-        
-      <Typography variant="h2">Find Pokemon By Type</Typography>
-      <form onSubmit={handleSubmit}>
       <Box
-        textAlign="center"
-        alignItems="center"
         sx={{
-          padding: "20px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          gap: "2rem",
+          position: "relative",
+          top: "100px",
+          width: "85vw",
+          height: "auto",
         }}
+        textAlign="center"
       >
-        <TextField
-          value={input}
-          onChange={(e)=>setInput(e.target.value)}
-          placeholder='Enter pokemon type eg:"Fire"'
-          sx={{
-            width: "40vw",
-          }}
-        />
-        <Button variant="contained" type="submit" color="error">
-          Search
-        </Button>
-      </Box>
+        <ThemeProvider theme={theme}>
+          <Typography variant="h3">Find Pokemon By Type</Typography>
+        </ThemeProvider>
+        <form onSubmit={handleSubmit}>
+          <Box
+            textAlign="center"
+            alignItems="center"
+            sx={{
+              padding: "20px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "2rem",
+            }}
+          >
+            <TextField
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder='Enter pokemon type eg:"Fire"'
+              sx={{
+                width: "40vw",
+              }}
+            />
+            <Button variant="contained" type="submit" color="error">
+              Search
+            </Button>
+          </Box>
         </form>
-    </Box> 
-    
+      </Box>
     </>
   );
 };

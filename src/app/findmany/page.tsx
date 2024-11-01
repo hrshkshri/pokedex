@@ -5,10 +5,12 @@ import {
   Stack,
   TextField,
   Typography,
+  createTheme,
 } from "@mui/material";
 import React, { useState } from "react";
 import { trpc } from "../_trpc/client";
 import { PokedexTable } from "../_components/PokedexTable";
+import { ThemeProvider } from "@emotion/react";
 
 type Pokemon = {
   id: number;
@@ -18,7 +20,20 @@ type Pokemon = {
   img:string;
 };
 
+
+
 const Pokedex = () => {
+    const theme = createTheme();
+
+    theme.typography.h3 = {
+      fontSize: '1.5rem',
+      '@media (min-width:600px)': {
+        fontSize: '2rem',
+      },
+      [theme.breakpoints.up('md')]: {
+        fontSize: '3rem',
+      },
+    };
   const [pokemon, setPokemon] = useState("");
   const [queryKey, setQueryKey] = useState<string | null>(null);
 
@@ -49,7 +64,10 @@ const Pokedex = () => {
       }}
       textAlign="center"
     >
-      <Typography variant="h2">Find Multiple Pokemon</Typography>
+
+        <ThemeProvider theme={theme}>
+            <Typography variant="h3">Find Multiple Pokemon</Typography>
+        </ThemeProvider>
       <form onSubmit={handleSubmit}>
       <Box
         textAlign="center"

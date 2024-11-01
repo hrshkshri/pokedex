@@ -7,10 +7,12 @@ import {
   Stack,
   TextField,
   Typography,
+  createTheme,
 } from "@mui/material";
 import React, { useState } from "react";
 import { trpc } from "../_trpc/client";
 import PokemonRow from "../_components/PokemonRow";
+import { ThemeProvider } from "@emotion/react";
 
 type Pokemon = {
   id: number;
@@ -23,6 +25,18 @@ type Pokemon = {
 const Pokedex = () => {
   const [pokemon, setPokemon] = useState("");
   const [queryKey, setQueryKey] = useState<string | null>(null);
+
+    const theme = createTheme();
+
+  theme.typography.h3 = {
+    fontSize: '1.5rem',
+    '@media (min-width:600px)': {
+      fontSize: '2rem',
+    },
+    [theme.breakpoints.up('md')]: {
+      fontSize: '3rem',
+    },
+  };
 
   const handleSubmit= (e:React.FormEvent<HTMLFormElement>)=>{
     e.preventDefault();
@@ -51,7 +65,9 @@ const Pokedex = () => {
       }}
       textAlign="center"
     >
-      <Typography variant="h2">Find Pokemon</Typography>
+      <ThemeProvider theme={theme}>
+      <Typography variant="h3">Find Pokemon</Typography>
+      </ThemeProvider>
       <form onSubmit={handleSubmit}>
       <Box
         textAlign="center"
