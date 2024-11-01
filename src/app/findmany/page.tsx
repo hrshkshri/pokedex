@@ -11,6 +11,7 @@ import React, { useEffect, useState } from "react";
 import { trpc } from "../_trpc/client";
 import { PokedexTable } from "../_components/PokedexTable";
 import { ThemeProvider } from "@emotion/react";
+import { ThreeCircles } from "react-loader-spinner";
 
 type Pokemon = {
   id: number;
@@ -25,6 +26,7 @@ type Pokemon = {
 const Pokedex = () => {
     const theme = createTheme();
     const [pokemon, setPokemon] = useState("");
+    const [loading,setLoading] = useState(false);
     const [queryKey, setQueryKey] = useState<string>("");
     const pokemon2 = trpc.getPokemonArray.get.useQuery<Pokemon[]>(queryKey.split(","),{
       enabled:false
@@ -44,13 +46,14 @@ const Pokedex = () => {
   const handleSubmit= (e:React.FormEvent<HTMLFormElement>)=>{
     e.preventDefault();
     setQueryKey(queryKey=>pokemon);
-
+    setLoading(true);
   }
   
   useEffect( ()=>{
     pokemon2.refetch().
     then(()=>{
       console.log("Data fetched successfully")
+      setLoading(false);
     })
     .catch((e)=>{
       console.log("error occured",e)
@@ -108,6 +111,27 @@ const Pokedex = () => {
       </Box>
         </form>
     </Box> 
+    {loading && (
+          <Box
+            sx={{
+              width:"100%",
+              height:"100%",
+              display:"flex",
+              justifyContent:"center",
+              alignItems:"center"
+            }}
+          >
+          <ThreeCircles
+              visible={true}
+              height="100"
+              width="100"
+              color="red"
+              ariaLabel="three-circles-loading"
+              wrapperStyle={{}}
+              wrapperClass=""
+          />
+          </Box>
+        )}
     <Box sx={{
         width:"85vw"
     }}>

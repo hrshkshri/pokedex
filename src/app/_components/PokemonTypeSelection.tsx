@@ -5,11 +5,13 @@ import React, { useState } from "react";
 type PokemonTypeSelectionProps = {
   selectedType: string | undefined;
   selectType: (type: string | undefined) => void;
+  setLoading:(type:boolean )=>void;
 };
 
 export const PokemonTypeSelection = ({
   selectedType,
   selectType,
+  setLoading
 }: PokemonTypeSelectionProps) => {
   const [input, setInput] = useState<string>("");
   const theme = createTheme();
@@ -26,6 +28,7 @@ export const PokemonTypeSelection = ({
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     selectType(input);
+    setLoading(true);
   };
 
   return (
