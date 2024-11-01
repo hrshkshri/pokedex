@@ -42,6 +42,7 @@ const Pokedex = () => {
     e.preventDefault();
     setQueryKey(pokemon);
   }
+  
   const pokemon2 = trpc.getPokemon.get.useQuery<Pokemon[]>(queryKey?{ name: queryKey }:{name:""});
 
   if (pokemon2.isLoading) {
@@ -68,6 +69,7 @@ const Pokedex = () => {
       <ThemeProvider theme={theme}>
       <Typography variant="h3">Find Pokemon</Typography>
       </ThemeProvider>
+
       <form onSubmit={handleSubmit}>
       <Box
         textAlign="center"
@@ -77,6 +79,10 @@ const Pokedex = () => {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          flexDirection:{
+            xs:'column',
+            sm:'row'
+          },
           gap: "2rem",
         }}
       >
@@ -85,7 +91,10 @@ const Pokedex = () => {
           onChange={(e)=>setPokemon(e.target.value)}
           placeholder='Enter pokemon name eg:"Bulbasaur"'
           sx={{
-            width: "40vw",
+            width:{
+              xs:'100%',
+              sm:'40vw',
+            }
           }}
         />
         <Button variant="contained" type="submit" color="error">
