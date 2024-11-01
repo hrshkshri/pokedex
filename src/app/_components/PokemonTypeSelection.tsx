@@ -46,7 +46,7 @@ export const PokemonTypeSelection = ({
         <TextField
           value={input}
           onChange={(e)=>setInput(e.target.value)}
-          placeholder='Enter pokemon name by type eg:"Fire"'
+          placeholder='Enter pokemon type eg:"Fire"'
           sx={{
             width: "40vw",
           }}
