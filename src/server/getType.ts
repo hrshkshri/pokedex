@@ -4,17 +4,18 @@ import { z } from "zod";
 
 export const getTypeRoute = router({
     get: publicProcedure
-    .input(z.object({type:z.string()}))
+    .input(z.object({type:z.coerce.string().optional()}))
     .query(async (value)=>{
         if(!prisma){
             throw new Error("Prisma Client is not initiated")
         }
-        return prisma.pokemon.findMany({
-            where:{
-                types:{
-                    has:value.input.type.toLowerCase(),
+        if(value.input.type)
+            return prisma.pokemon.findMany({
+                where:{
+                    types:{
+                        has:value.input.type.toLowerCase(),
+                    }
                 }
-            }
-        })
+            })
     })
 })

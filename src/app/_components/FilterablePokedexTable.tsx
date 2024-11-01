@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { PokemonTypeSelection } from "./PokemonTypeSelection";
 import { Box,Stack } from "@mui/material";
 import { PokedexTable } from "./PokedexTable";
@@ -14,15 +14,14 @@ type Pokemon = {
   
 
 export const FilterablePokedexTable = () => {
-    const [selectedType, setSelectedType] = useState<string | undefined>();
-    const pokemon2 = trpc.getType.get.useQuery<Pokemon[]>(selectedType?{type:selectedType}:{type:""}); 
-    if (pokemon2.isLoading) {
-        return <div>Loading...</div>;
-      }
-    
-      if (pokemon2.error) {
-        return <div>An error has occurred: {pokemon2.error.message}</div>;
-      }
+    const [selectedType, setSelectedType] = useState<string |undefined>("");
+    const pokemon2 = trpc.getType.get.useQuery<Pokemon[]>({type:selectedType},{
+      enabled:false
+    }); 
+   
+      useEffect(()=>{
+        pokemon2.refetch();
+      },[selectedType]);
       const data = pokemon2.data;
       console.log(data);
   return (

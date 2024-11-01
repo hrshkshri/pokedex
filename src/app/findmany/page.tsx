@@ -7,7 +7,7 @@ import {
   Typography,
   createTheme,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { trpc } from "../_trpc/client";
 import { PokedexTable } from "../_components/PokedexTable";
 import { ThemeProvider } from "@emotion/react";
@@ -24,6 +24,11 @@ type Pokemon = {
 
 const Pokedex = () => {
     const theme = createTheme();
+    const [pokemon, setPokemon] = useState("");
+    const [queryKey, setQueryKey] = useState<string>("");
+    const pokemon2 = trpc.getPokemonArray.get.useQuery<Pokemon[]>(queryKey.split(","),{
+      enabled:false
+    });
 
     theme.typography.h3 = {
       fontSize: '1.5rem',
@@ -34,22 +39,19 @@ const Pokedex = () => {
         fontSize: '3rem',
       },
     };
-  const [pokemon, setPokemon] = useState("");
-  const [queryKey, setQueryKey] = useState<string | null>(null);
+
 
   const handleSubmit= (e:React.FormEvent<HTMLFormElement>)=>{
     e.preventDefault();
-    setQueryKey(pokemon);
-  }
-  const pokemon2 = trpc.getPokemonArray.get.useQuery<Pokemon[]>(queryKey?queryKey.split(","):[]);
+    setQueryKey(queryKey=>pokemon);
 
-  if (pokemon2.isLoading) {
-    return <div>Loading...</div>;
   }
+  
+  useEffect(()=>{
+    pokemon2.refetch();
+  },[queryKey]);
 
-  if (pokemon2.error) {
-    return <div>An error has occurred: {pokemon2.error.message}</div>;
-  }
+
   const data = pokemon2.data;
   console.log(data);
   return (
@@ -64,7 +66,6 @@ const Pokedex = () => {
       }}
       textAlign="center"
     >
-
         <ThemeProvider theme={theme}>
             <Typography variant="h3">Find Multiple Pokemon</Typography>
         </ThemeProvider>
@@ -82,7 +83,7 @@ const Pokedex = () => {
       >
         <TextField
           value={pokemon}
-          onChange={(e)=>setPokemon(e.target.value)}
+          onChange={(e)=>setPokemon(pokemon=>e.target.value)}
           placeholder='Enter pokemon name seperated by commas eg:"Bulbasaur,pikachu"'
           sx={{
             width: "40vw",
