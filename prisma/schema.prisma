@@ -8,11 +8,12 @@ generator client {
 datasource db {
     provider = "postgresql"
     url      = env("DATABASE_URL")
+    directUrl = env("DIRECT_URL")
 }
 
 model pokemon{
     id        Int      @id @default(autoincrement())
-    name      String
+    name      String   @unique
     types     String[]
     sprite    String
     img       String

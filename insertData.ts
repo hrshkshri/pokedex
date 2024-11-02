@@ -50,7 +50,14 @@ async function main() {
 
   // Insert data into the database
   for (const pokemon of pokemonData) {
-    await prisma.pokemon.create({ data: pokemon });
+    const existingPokemon = await prisma.pokemon.findUnique({
+      where: { name: pokemon.name }, // Assuming name is the identifier
+    });
+
+    // Only create if the Pokémon does not already exist
+    if (!existingPokemon) {
+      await prisma.pokemon.create({ data: pokemon });
+    }
   }
 
   console.log("Data inserted successfully");
